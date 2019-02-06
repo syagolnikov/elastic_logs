@@ -1,7 +1,7 @@
 ## Monitor infrastructure w/ ELK stack on docker
 
 
-![Alt Image Text](./img/elk_sample.svg "ELK sample")
+![Alt Image Text](./img/elk_sample.png "ELK sample")
 
 
 Official Elastic documentation: [https://www.elastic.co/](https://www.elastic.co/)
