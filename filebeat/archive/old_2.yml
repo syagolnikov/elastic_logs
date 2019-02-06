@@ -1,0 +1,26 @@
+filebeat.prospectors:
+- input_type: log
+  tags: container
+  paths:
+  - /var/lib/docker/containers/*/*log
+  tail_files: true
+  input_type: log
+  document_type: json
+  registry: /var/lib/filebeat/registry
+- input_type: log
+  tags: host
+  paths:
+  - /syslog/*log
+  tail_files: true
+  fields:
+    server_name: '${SERVER_NAME}'
+    server_private_ip: '${SERVER_PRIVATE_IP}'
+    server_public_ip: '${SERVER_PUBLIC_IP}'
+processors:
+- add_cloud_metadata: ~
+- add_docker_metadata: ~
+
+output.logstash:
+  hosts: '${LOGSTASH_HOSTS:logstash:5044}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'

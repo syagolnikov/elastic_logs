@@ -1,0 +1,12 @@
+version: '3'
+services:
+  heartbeat:
+    volumes:
+      - ./config/heartbeat.docker.yml:/usr/share/heartbeat/heartbeat.yml:ro
+    container_name: heartbeat
+    network_mode: "host"
+    user: "heartbeat"
+    restart: always
+    privileged: true
+    image: docker.elastic.co/beats/heartbeat:6.5.3
+    entrypoint: heartbeat -e -strict.perms=false -E output.logstash.hosts=["192.168.0.41:5044"]

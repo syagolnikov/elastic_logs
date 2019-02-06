@@ -1,0 +1,22 @@
+heartbeat.monitors:
+- type: http
+  schedule: '@every 5s'
+  urls:
+    - http://192.168.0.80:8080
+    - http://192.168.0.80:8081
+    - http://192.168.0.80:8082
+    - http://192.168.0.80:8083
+    - http://192.168.0.80:8084
+    - http://192.168.0.80:8085
+    - http://192.168.0.80:8086
+    - http://192.168.0.80:8087
+    - http://192.168.0.80:8088
+    - http://192.168.0.80:8089
+
+processors:
+- add_cloud_metadata: us-west-web-server-farm
+
+#output.elasticsearch:
+#  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+#  username: '${ELASTICSEARCH_USERNAME:}'
+#  password: '${ELASTICSEARCH_PASSWORD:}'

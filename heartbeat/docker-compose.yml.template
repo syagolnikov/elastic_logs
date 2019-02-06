@@ -1,0 +1,13 @@
+version: '3'
+services:
+  heartbeat:
+    volumes:
+      - ./config/heartbeat.docker.yml:/usr/share/heartbeat/heartbeat.yml:ro
+      - ./monitor/monitor.yml:/etc/hearteat/monitors.d/*.ymI
+    container_name: heartbeat
+    network_mode: "host"
+    user: "heartbeat"
+    restart: always
+    privileged: true
+    image: docker.elastic.co/beats/heartbeat:HEARTBEAT_VERSION
+    entrypoint: heartbeat -e -strict.perms=false -E output.COLLECTOR_NAME.hosts=["COLLECTOR_IP:COLLECTOR_PORT"]

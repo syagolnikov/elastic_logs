@@ -1,0 +1,15 @@
+version: '3'
+services:
+  filebeat:
+    volumes:
+      - FILEBEAT_CONFIG_PATH
+      - DOCKER_LOG_PATH
+      - SYSLOG_LOG_PATH
+      - DOCKER_SOCK_PATH
+    container_name: filebeat
+    network_mode: "host"
+    user: "root"
+    restart: always
+    privileged: true
+    image: docker.elastic.co/beats/filebeat:FILEBEAT_VERSION
+    entrypoint: filebeat -e -strict.perms=false -E output.COLLECTOR_NAME.hosts=["COLLECTOR_IP:COLLECTOR_PORT"] -E SERVERNAME=SERVER_NAME -E SERVERPRIVATEIP=PRIVATE_IP -E SERVERPUBLICIP=PUBLIC_IP
