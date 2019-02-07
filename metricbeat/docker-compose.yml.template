@@ -2,7 +2,7 @@ version: '3'
 services:
   filebeat:
     volumes:
-      - ./config/configyml:/usr/share/metricbeat/metricbeat.yml:ro
+      - ./config/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       - /proc:/hostfs/proc:ro
@@ -10,6 +10,7 @@ services:
     container_name: metricbeat
     network_mode: "host"
     user: "root"
+    restart: always
     privileged: true
-    image: docker.elastic.co/beats/filebeat:6.5.4
-    entrypoint: metricbeat -e -strict.perms=false -E output.elasticsearch.hosts=["elasticip:9200"] -E SERVER_NAME=servername -E SERVER_PRIVATE_IP=privateip
+    image: docker.elastic.co/beats/metricbeat:METRICBEAT_VERSION
+    entrypoint: metricbeat -e -strict.perms=false -E output.elasticsearch.hosts=["ELASTICSEARCH_IP:9200"] -E SERVERNAME=SERVER_NAME -E SERVERPRIVATEIP=SERVER_PRIVATE_IP -E SERVERPUBLICIP=SERVER_PUBLIC_IP
